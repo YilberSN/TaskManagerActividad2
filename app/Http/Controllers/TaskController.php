@@ -40,7 +40,10 @@ class TaskController extends Controller
             'priority' => 'required'
         ]);
 
-        Task::create($request->only('title', 'description', 'priority'));
+        //Task::create($request->only('title', 'description', 'priority'));
+
+        $request->user()->tasks()->create($request->only('title', 'description', 'priority'));
+
         return redirect()->route('tasks.index')->with('sucess', 'Task created successfully');
     }
 
