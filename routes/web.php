@@ -15,11 +15,11 @@ Route::get('/home', function(){
     return redirect()->route('tasks.index');
 });
 
-Route::middleware('auth')->group(function(){
+Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::resource('tasks', TaskController::class);
 });
 
-Route::resource('tasks', App\Http\Controllers\TaskController::class);
+//Route::resource('tasks', App\Http\Controllers\TaskController::class);
 
 
 // CRUD DE TAREAS EXITOSO
