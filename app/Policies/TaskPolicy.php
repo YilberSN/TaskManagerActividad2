@@ -37,7 +37,13 @@ class TaskPolicy
      */
     public function update(User $user, Task $task): bool
     {
-        return $user->id === $task->user_id;
+        if ($user->hasRole('admin')){
+            return true;
+        }
+        if ($user->hasRole('editor') && $user->id === $task->user_id){
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -45,7 +51,13 @@ class TaskPolicy
      */
     public function delete(User $user, Task $task): bool
     {
-        return $user->id === $task->user_id;
+        if ($user->hasRole('admin')){
+            return true;
+        }
+        if ($user->hasRole('editor') && $user->id === $task->user_id){
+            return true;
+        }
+        return false;
     }
 
     /**
