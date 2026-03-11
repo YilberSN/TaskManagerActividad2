@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,8 +16,12 @@ Route::get('/home', function(){
     return redirect()->route('tasks.index');
 });
 
-Route::middleware(['auth', 'role:admin'])->group(function(){
+Route::middleware(['auth'])->group(function(){
     Route::resource('tasks', TaskController::class);
+});
+
+Route::middleware(['auth', 'role:admin'])->group(function(){
+    Route::resource('users', UserController::class);
 });
 
 //Route::resource('tasks', App\Http\Controllers\TaskController::class);
