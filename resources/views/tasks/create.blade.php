@@ -1,7 +1,7 @@
 @extends ('layouts.app')
 
 @section('content')
-    <h1>Create Post</h1>
+    <h1>Crear tarea</h1>
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -15,7 +15,7 @@
     <form action="{{ route('tasks.store') }}" method="POST">
         @csrf
         <div class="mb-3">
-            <label class="form-label">Title</label>
+            <label class="form-label">Título</label>
             <input name="title" class="form-control" value="{{ old('title') }}">
         </div>
         <div class="mb-3">
@@ -27,9 +27,9 @@
             </select>
         </div>
         <div class="mb-3">
-            <label class="form-label">Content</label>
+            <label class="form-label">Descripción</label>
             <textarea name="description" rows="6" class="form-control">{{ old('description') }}</textarea>
         </div>
-        <button class="btn btn-primary">Save</button>
+        <button class="btn btn-primary">Guardar</button>
     </form>
 @endsection

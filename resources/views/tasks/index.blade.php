@@ -1,7 +1,7 @@
 @extends ('layouts.app')
     @section('content')
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h1>Tareas</h1>
+            <h1>Listado de tareas</h1>
             <a href="{{ route('tasks.create') }}" class="btn btn-primary">Crear tarea</a>
         </div>
         @foreach($tasks as $task)
@@ -14,23 +14,21 @@
                         </span>
                     </div>
                     <p class="card-text">{{ Str::limit($task->description, 200) }}</p>
-                    <a href="{{ route('tasks.show', $task) }}" class="btn btn-sm btn-outline-secondary">View</a>
+                    <a href="{{ route('tasks.show', $task) }}" class="btn btn-sm btn-outline-secondary">Ver</a>
 
-                    @role('admin')
-                    {{-- @can('update', $task) --}}
-                        <a href="{{ route('tasks.edit', $task) }}" class="btn btn-sm btn-warning">Edit</a>
-                    {{-- @endcan --}}
-                    @endrole
-
-                    @role('admin')
-                    {{-- @can('delete', $task) --}}
-                        <form action="{{ route('tasks.destroy', $task) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete this task?');">
+                    @can('update', $task)
+                        <a href="{{ route('tasks.edit', $task) }}" class="btn btn-sm btn-warning">Editar</a>
+                    @endcan
+                    
+                    @can('delete', $task)
+                        <form action="{{ route('tasks.destroy', $task) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-sm btn-danger">Delete</button>
+                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-task-id="{{ $task->id }}">
+                                Borrar
+                            </button>
                         </form>
-                    {{-- @endcan --}}
-                    @endrole
+                    @endcan
                 </div>
             </div>
     @endforeach
