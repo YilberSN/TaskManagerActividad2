@@ -56,6 +56,9 @@
                         </div>
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
+                                <a href="{{ route('users.index') }}" class="btn btn-secondary">
+                                    Volver
+                                </a>
                                 <button type="submit" class="btn btn-primary">Actualizar</button>
                             </div>
                         </div>

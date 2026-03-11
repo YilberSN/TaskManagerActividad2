@@ -9,6 +9,9 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <h5 class="card-title">{{ $user->name }}</h5>
+                        @foreach ($user->getRoleNames() as $role)
+                            <span class="badge bg-primary">{{ ucfirst($role) }}</span>
+                        @endforeach
                     </div>
                     <p class="card-text">{{ Str::limit($user->email, 200) }}</p>
                     <a href="{{ route('users.show', $user) }}" class="btn btn-sm btn-outline-secondary">View</a>
