@@ -12,7 +12,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <h5 class="card-title">{{ $task->title }}</h5>
                         <span class="badge {{ $task->priority == 'HIGH' ? 'bg-danger' : ($task->priority == 'MEDIUM' ? 'bg-warning' : 'bg-secondary') }}">
-                            {{ $task->priority == 'HIGH' ? 'ALTA' : ($task->priority == 'MEDIA' ? 'bg-warning' : 'BAJA') }}
+                            {{ $task->priority == 'HIGH' ? 'ALTA' : ($task->priority == 'MEDIUM' ? 'MEDIA' : 'BAJA') }}
                         </span>
                     </div>
                     <p class="card-text">{{ Str::limit($task->description, 200) }}</p>
