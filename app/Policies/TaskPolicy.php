@@ -29,6 +29,9 @@ class TaskPolicy
      */
     public function create(User $user): bool
     {
+        if ($user->hasRole('admin') || $user->hasRole('editor')){
+            return true;
+        }
         return false;
     }
 

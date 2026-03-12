@@ -2,7 +2,9 @@
     @section('content')
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h1>Listado de tareas</h1>
-            <a href="{{ route('tasks.create') }}" class="btn btn-primary">Crear tarea</a>
+            @can('create', App\Models\Task::class)
+                <a href="{{ route('tasks.create') }}" class="btn btn-primary">Crear tarea</a>
+            @endcan
         </div>
         @foreach($tasks as $task)
             <div class="card mb-2">
