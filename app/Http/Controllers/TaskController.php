@@ -45,7 +45,7 @@ class TaskController extends Controller
 
         $request->user()->tasks()->create($request->only('title', 'description', 'priority'));
 
-        return redirect()->route('tasks.index')->with('sucess', 'Task created successfully');
+        return redirect()->route('tasks.index')->with('sucess', 'Tarea creada correctamente.');
     }
 
     /**
@@ -80,7 +80,7 @@ class TaskController extends Controller
         $task = Task::findOrFail($id);
         $this->authorize('update', $task);
         $task->update($request->only('title', 'description', 'priority'));
-        return redirect()->route('tasks.index')->with('success', 'Task updted successfully');
+        return redirect()->route('tasks.index')->with('success', 'Tarea actualizada correctamente.');
     }
 
     /**
@@ -91,6 +91,6 @@ class TaskController extends Controller
         $task = Task::findOrFail($id);
         $this->authorize('delete', $task);
         $task->delete();
-        return redirect()->route('tasks.index')->with('success', 'Task deleted successfully');
+        return redirect()->route('tasks.index')->with('success', 'Tarea borrada correctamente.');
     }
 }

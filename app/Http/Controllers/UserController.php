@@ -61,7 +61,6 @@ class UserController extends Controller
     public function edit(string $id)
     {
         $user = User::findOrFail($id);
-        //$this->authorize('update', $user);
         return view('users.edit', compact('user'));
     }
 
@@ -97,7 +96,10 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         $user = User::findOrFail($id);
-        //$this->authorize('delete', $user);
+
+        if (auth()->id() == $user->id) {
+            return redirect()->route('users.index')->with('error', 'No puedes eliminar tu propio usuario.');
+        }
         $user->delete();
         return redirect()->route('users.index')->with('success', 'Usuario eliminado correctamente.');
     }
