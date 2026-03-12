@@ -8,12 +8,18 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $users = User::latest()->get();
+        $this->authorize('viewAny', User::class);
         return view('users.index', compact('users'));
     }
 
@@ -22,6 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', User::class);
         return view('users.create');
     }
 
@@ -43,6 +50,7 @@ class UserController extends Controller
         ]);
         $role = $request->role ?? 'user';
         $user->assignRole($role);
+        $this->authorize('create', $user);
         return redirect()->route('users.index')->with('success', 'Usuario creado correctamente.');
     }
 
@@ -52,6 +60,7 @@ class UserController extends Controller
     public function show(string $id)
     {
         $user = User::findOrFail($id);
+        $this->authorize('view', $user);
         return view('users.show', compact('user'));
     }
 
@@ -61,6 +70,7 @@ class UserController extends Controller
     public function edit(string $id)
     {
         $user = User::findOrFail($id);
+        $this->authorize('update', $user);
         return view('users.edit', compact('user'));
     }
 
@@ -84,6 +94,7 @@ class UserController extends Controller
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
         }
+        $this->authorize('update', $user);
         $user->update($data);
         $user->syncRoles([$request->role]);
 
@@ -96,10 +107,7 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         $user = User::findOrFail($id);
-
-        if (auth()->id() == $user->id) {
-            return redirect()->route('users.index')->with('error', 'No puedes eliminar tu propio usuario.');
-        }
+        $this->authorize('delete', $user);
         $user->delete();
         return redirect()->route('users.index')->with('success', 'Usuario eliminado correctamente.');
     }

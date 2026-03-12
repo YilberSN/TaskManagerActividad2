@@ -40,9 +40,7 @@ class TaskController extends Controller
             'description' => 'required',
             'priority' => 'required'
         ]);
-
-        //Task::create($request->only('title', 'description', 'priority'));
-
+        
         $request->user()->tasks()->create($request->only('title', 'description', 'priority'));
 
         return redirect()->route('tasks.index')->with('sucess', 'Tarea creada correctamente.');

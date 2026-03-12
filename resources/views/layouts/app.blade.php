@@ -15,9 +15,9 @@
                     @auth
                         <li class="nav-item"><a class="nav-link" href="{{ route('tasks.index') }}">Tareas</a></li>
                     @endauth
-                    @role('admin')
+                    @can('viewAny', App\Models\User::class)
                         <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">Usuarios</a></li>
-                    @endrole
+                    @endcan
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     @guest

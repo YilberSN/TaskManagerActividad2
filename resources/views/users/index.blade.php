@@ -16,20 +16,19 @@
                     <p class="card-text">{{ $user->email }}</p>
                     <a href="{{ route('users.show', $user) }}" class="btn btn-sm btn-outline-secondary">Ver</a>
 
-                    @role('admin')
+                    @can('update', $user)
                         <a href="{{ route('users.edit', $user) }}" class="btn btn-sm btn-warning">Editar</a>
-                    @endrole
+                    @endcan
 
-                    @role('admin')
+                    @can('delete', $user)
                         <form action="{{ route('users.destroy', $user) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
-                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" 
-                                data-user-id="{{ $user->id }}" @if(auth()->id() == $user->id) disabled @endif>
+                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-user-id="{{ $user->id }}">
                                 Borrar
                             </button>
                         </form>
-                    @endrole
+                    @endcan
                 </div>
             </div>
     @endforeach
